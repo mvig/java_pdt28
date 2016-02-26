@@ -1,3 +1,6 @@
+/*
+* Данные для заполнения формы нового контакта.
+*/
 package my.test.solution;
 
 public class NewContactData {

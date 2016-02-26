@@ -1,3 +1,6 @@
+/*
+* Задание №4
+*/
 package my.test.solution;
 
 import org.openqa.selenium.By;
