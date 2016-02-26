@@ -34,7 +34,7 @@ public class AddTestNewContact {
     public void addNewTestContact() {
 
         goAddNewContact();
-        fillNewContact();
+        fillNewContact("UserName1", "UserMidldleName1", "UserLastName1", "User", "mr.", "Home", "ul. Lenina 1 kv.1", "+7 774 777 77", "+380972233311", "KGB", "+380972233311", "usermail@mail.ru");
         submitNewContact();
     }
 
@@ -42,42 +42,42 @@ public class AddTestNewContact {
         wd.findElement(By.name("submit")).click();
     }
 
-    private void fillNewContact() {
+    private void fillNewContact(String firstname, String middlename, String lastname, String nickname, String title_contact, String company, String address, String home_phone, String mobile_phone, String where_work, String fax_phone, String email_contact) {
         wd.findElement(By.name("firstname")).click();
         wd.findElement(By.name("firstname")).clear();
-        wd.findElement(By.name("firstname")).sendKeys("UserName1");
+        wd.findElement(By.name("firstname")).sendKeys(firstname);
         wd.findElement(By.name("middlename")).click();
         wd.findElement(By.name("middlename")).clear();
-        wd.findElement(By.name("middlename")).sendKeys("UserMidldleName1");
+        wd.findElement(By.name("middlename")).sendKeys(middlename);
         wd.findElement(By.name("lastname")).click();
         wd.findElement(By.name("lastname")).clear();
-        wd.findElement(By.name("lastname")).sendKeys("UserLastName1");
+        wd.findElement(By.name("lastname")).sendKeys(lastname);
         wd.findElement(By.name("nickname")).click();
         wd.findElement(By.name("nickname")).clear();
-        wd.findElement(By.name("nickname")).sendKeys("User");
+        wd.findElement(By.name("nickname")).sendKeys(nickname);
         wd.findElement(By.name("title")).click();
         wd.findElement(By.name("title")).clear();
-        wd.findElement(By.name("title")).sendKeys("mr.");
+        wd.findElement(By.name("title")).sendKeys(title_contact);
         wd.findElement(By.name("company")).click();
         wd.findElement(By.name("company")).clear();
-        wd.findElement(By.name("company")).sendKeys("Home");
+        wd.findElement(By.name("company")).sendKeys(company);
         wd.findElement(By.name("address")).click();
         wd.findElement(By.name("address")).clear();
-        wd.findElement(By.name("address")).sendKeys("ul. Lenina 1 kv.1");
+        wd.findElement(By.name("address")).sendKeys(address);
         wd.findElement(By.name("home")).click();
         wd.findElement(By.name("home")).clear();
-        wd.findElement(By.name("home")).sendKeys("+7 774 777 77");
+        wd.findElement(By.name("home")).sendKeys(home_phone);
         wd.findElement(By.name("mobile")).click();
         wd.findElement(By.name("mobile")).clear();
-        wd.findElement(By.name("mobile")).sendKeys("+380972233311");
+        wd.findElement(By.name("mobile")).sendKeys(mobile_phone);
         wd.findElement(By.name("work")).click();
         wd.findElement(By.name("work")).clear();
-        wd.findElement(By.name("work")).sendKeys("KGB");
+        wd.findElement(By.name("work")).sendKeys(where_work);
         wd.findElement(By.name("fax")).click();
-        wd.findElement(By.name("fax")).sendKeys("+380972233311");
+        wd.findElement(By.name("fax")).sendKeys(fax_phone);
         wd.findElement(By.name("email")).click();
         wd.findElement(By.name("email")).clear();
-        wd.findElement(By.name("email")).sendKeys("usermail@mail.ru");
+        wd.findElement(By.name("email")).sendKeys(email_contact);
     }
 
     private void goAddNewContact() {
