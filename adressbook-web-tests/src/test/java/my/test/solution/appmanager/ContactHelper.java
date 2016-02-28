@@ -1,6 +1,6 @@
 package my.test.solution.appmanager;
 
-import my.test.solution.model.NewContactData;
+import my.test.solution.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -19,19 +19,19 @@ public class ContactHelper extends BaseHelper {
 
     }
 
-    public void fillNewContact(NewContactData newContactData) {
-        type(By.name("firstname"), newContactData.getFirstname());
-        type(By.name("middlename"), newContactData.getMiddlename());
-        type(By.name("lastname"), newContactData.getLastname());
-        type(By.name("nickname"), newContactData.getNickname());
-        type(By.name("title"), newContactData.getTitle_contact());
-        type(By.name("company"), newContactData.getCompany());
-        type(By.name("address"), newContactData.getAddress());
-        type(By.name("home"), newContactData.getHome_phone());
-        type(By.name("mobile"), newContactData.getMobile_phone());
-        type(By.name("work"), newContactData.getWhere_work());
-        type(By.name("fax"), newContactData.getFax_phone());
-        type(By.name("email"), newContactData.getEmail_contact());
+    public void fillNewContact(ContactData contactData) {
+        type(By.name("firstname"), contactData.getFirstname());
+        type(By.name("middlename"), contactData.getMiddlename());
+        type(By.name("lastname"), contactData.getLastname());
+        type(By.name("nickname"), contactData.getNickname());
+        type(By.name("title"), contactData.getTitle_contact());
+        type(By.name("company"), contactData.getCompany());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("home"), contactData.getHome_phone());
+        type(By.name("mobile"), contactData.getMobile_phone());
+        type(By.name("work"), contactData.getWhere_work());
+        type(By.name("fax"), contactData.getFax_phone());
+        type(By.name("email"), contactData.getEmail_contact());
 
     }
 }

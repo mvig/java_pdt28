@@ -3,7 +3,7 @@
 */
 package my.test.solution.model;
 
-public class NewContactData {
+public class ContactData {
     private final String firstname;
     private final String middlename;
     private final String lastname;
@@ -17,7 +17,7 @@ public class NewContactData {
     private final String fax_phone;
     private final String email_contact;
 
-    public NewContactData(String firstname, String middlename, String lastname, String nickname, String title_contact, String company, String address, String home_phone, String mobile_phone, String where_work, String fax_phone, String email_contact) {
+    public ContactData(String firstname, String middlename, String lastname, String nickname, String title_contact, String company, String address, String home_phone, String mobile_phone, String where_work, String fax_phone, String email_contact) {
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
