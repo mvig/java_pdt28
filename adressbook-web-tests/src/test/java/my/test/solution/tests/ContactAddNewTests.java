@@ -6,7 +6,7 @@ package my.test.solution.tests;
 import my.test.solution.model.ContactData;
 import org.testng.annotations.Test;
 
-public class AddNewContactTests extends TestBase {
+public class ContactAddNewTests extends TestBase {
 
 
     @Test
