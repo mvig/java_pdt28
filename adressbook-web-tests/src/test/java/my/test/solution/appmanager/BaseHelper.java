@@ -11,7 +11,7 @@ public class BaseHelper {
     FirefoxDriver wd;
 
     public BaseHelper(FirefoxDriver wd) {
-        this.wd=wd;
+        this.wd = wd;
     }
 
     protected void click(By locator) {
@@ -23,7 +23,8 @@ public class BaseHelper {
         wd.findElement(locator).clear();
         wd.findElement(locator).sendKeys(text);
     }
-    public  boolean isAlertPresent() {
+
+    public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
             return true;

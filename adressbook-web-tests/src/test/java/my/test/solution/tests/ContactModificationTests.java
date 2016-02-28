@@ -4,7 +4,6 @@ import my.test.solution.model.ContactData;
 import org.testng.annotations.Test;
 
 
-
 /**
  * Created by Tirex on 28.02.2016.
  */
