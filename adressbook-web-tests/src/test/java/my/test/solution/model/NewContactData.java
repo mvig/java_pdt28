@@ -1,7 +1,7 @@
 /*
 * Данные для заполнения формы нового контакта.
 */
-package my.test.solution;
+package my.test.solution.model;
 
 public class NewContactData {
     private final String firstname;

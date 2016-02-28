@@ -1,4 +1,4 @@
-package my.test.solution;
+package my.test.solution.model;
 
 public class GroupData {
     private final String name;
