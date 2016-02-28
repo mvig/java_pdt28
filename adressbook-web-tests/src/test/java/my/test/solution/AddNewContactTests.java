@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
-public class AddTestNewContact {
+public class AddNewContactTests {
     FirefoxDriver wd;
     
     @BeforeMethod
