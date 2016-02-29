@@ -52,9 +52,11 @@ public class ContactHelper extends BaseHelper {
 
     public void deleteContact() {
 
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
-        click(By.xpath("//div/div[4]/form[2]/input[2]"));
+      //  click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
+      //  click(By.xpath("//div/div[4]/form[2]/input[2]"));
 
+        click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
+        wd.switchTo().alert().accept();
 
     }
 
