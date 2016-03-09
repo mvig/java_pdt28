@@ -2,7 +2,7 @@ package my.test.solution.appmanager;
 
 import my.test.solution.model.ContactData;
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Created by Tirex on 28.02.2016.
@@ -10,7 +10,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ContactHelper extends BaseHelper {
 
 
-    public ContactHelper(FirefoxDriver wd) {
+    public ContactHelper(WebDriver wd) {
         super(wd);
     }
 

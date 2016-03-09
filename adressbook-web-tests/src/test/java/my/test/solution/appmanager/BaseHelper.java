@@ -2,15 +2,15 @@ package my.test.solution.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Created by Tirex on 28.02.2016.
  */
 public class BaseHelper {
-    FirefoxDriver wd;
+    WebDriver wd;
 
-    public BaseHelper(FirefoxDriver wd) {
+    public BaseHelper(WebDriver wd) {
         this.wd = wd;
     }
 

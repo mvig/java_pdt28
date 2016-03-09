@@ -1,7 +1,7 @@
 package my.test.solution.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Created by Tirex on 28.02.2016.
@@ -9,7 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class NavigationHelper extends BaseHelper {
 
 
-    public NavigationHelper(FirefoxDriver wd) {
+    public NavigationHelper(WebDriver wd) {
         super(wd);
 
     }
