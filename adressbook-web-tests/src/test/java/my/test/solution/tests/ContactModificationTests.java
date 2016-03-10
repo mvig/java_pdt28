@@ -12,7 +12,7 @@ public class ContactModificationTests extends TestBase {
     public void testsContactEdition() {
 
         app.getContactHelper().gotoEditContact();
-        app.getContactHelper().fillNewContact(new ContactData("UserName", "UserMidldleName", "UserLastName", "User", "ms.", "Home", "ul. Kvita 55 kv.52", "+7 774 888 77", "+380972288311", "BP inc.", "+380972233332", "usermail@google.ru"));
+        app.getContactHelper().fillNewContact(new ContactData("UserName", "UserMidldleName", "UserLastName", null, "User", "ms.", "Home", "ul. Kvita 55 kv.52", "+7 774 888 77", "+380972288311", "BP inc.", "+380972233332", "usermail@google.ru"),false);
         app.getContactHelper().submitContactModification();
 
     }
