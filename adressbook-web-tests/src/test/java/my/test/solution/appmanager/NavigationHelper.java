@@ -30,7 +30,8 @@ public class NavigationHelper extends BaseHelper {
     public void goHome() {
         if (isElementPresent(By.id("maintable")))
             return;
-        click(By.linkText("home page"));
+
+        click(By.id("logo"));
     }
 
 }

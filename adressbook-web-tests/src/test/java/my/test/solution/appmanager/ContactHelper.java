@@ -56,17 +56,33 @@ public class ContactHelper extends BaseHelper {
 
     public void selectContactForDelete() {
 
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
+       // click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
+        if (!isElementPresent(By.id("MassCB")))
+            click(By.id("logo"));
+        if (!wd.findElement(By.id("MassCB")).isSelected()) {
+            click(By.id("MassCB"));
+        }
+
     }
 
     public void deleteContact() {
 
-        //  click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
-        //  click(By.xpath("//div/div[4]/form[2]/input[2]"));
 
         click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
         wd.switchTo().alert().accept();
 
     }
+
+    public boolean isThereContact() {
+
+        return isElementPresent(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
+    }
+
+    public void createContact() {
+        click(By.linkText("add new"));
+        fillNewContact(new ContactData("UserNameN", "UserMidldleName1", "UserLastName1", "test", "User", "mr.", "Home", "ul. Lenina 1 kv.1", "+7 774 777 77", "+380972233311", "KGB", "+380972233311", "usermail@mail.ru"),true);
+        submitNewContact();
+    }
+
 
 }
