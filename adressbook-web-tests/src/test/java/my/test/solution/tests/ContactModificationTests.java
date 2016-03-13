@@ -1,7 +1,6 @@
 package my.test.solution.tests;
 
 import my.test.solution.model.ContactData;
-import my.test.solution.model.GroupData;
 import org.testng.annotations.Test;
 
 
@@ -13,10 +12,7 @@ public class ContactModificationTests extends TestBase {
     public void testsContactEdition() {
 
         if (!app.getContactHelper().isThereContact()) {
-            app.getNavigationHelper().gotoGroupPage();
-            if (!app.getGroupHelper().isThereGroup())
-                app.getGroupHelper().createGroup(new GroupData("test", "test2", "test3"));
-            app.getNavigationHelper().goHome();
+            createOneGroupIfGroupsEmpty();
             app.getContactHelper().createContact();
         }
         app.getContactHelper().gotoEditContact();

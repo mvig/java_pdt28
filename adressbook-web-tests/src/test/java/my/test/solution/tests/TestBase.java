@@ -1,6 +1,7 @@
 package my.test.solution.tests;
 
 import my.test.solution.appmanager.ApplicationManager;
+import my.test.solution.model.GroupData;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -22,4 +23,9 @@ public class TestBase {
         app.stop();
     }
 
+    public void createOneGroupIfGroupsEmpty() {
+        app.getNavigationHelper().gotoGroupPage();
+        if (!app.getGroupHelper().isThereGroup()) app.getGroupHelper().createGroup(new GroupData("test", "test2", "test3"));
+        app.getNavigationHelper().goHome();
+    }
 }
