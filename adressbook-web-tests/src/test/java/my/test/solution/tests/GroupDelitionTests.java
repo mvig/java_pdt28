@@ -12,7 +12,7 @@ public class GroupDelitionTests extends TestBase {
     public void testGroupDelitions() {
 
         app.getNavigationHelper().gotoGroupPage();
-        GroupData group = new GroupData("test", "test1", "test2");
+        GroupData group = new GroupData( "test", "test1", "test2");
         if (!app.getGroupHelper().isThereGroup()) app.getGroupHelper().createGroup(group);
         List<GroupData> before = app.getGroupHelper().getGroupList();
         app.getGroupHelper().selectGroup(before.size() - 1);
