@@ -16,7 +16,7 @@ public class ContactDelitionTests extends TestBase {
             app.getContactHelper().createContact();
         }
         int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().selectContactForDelete();
+        app.getContactHelper().selectContact(before-1);
         app.getContactHelper().deleteContact();
         int after = app.getContactHelper().getContactCount();
         Assert.assertEquals(after,before-1);

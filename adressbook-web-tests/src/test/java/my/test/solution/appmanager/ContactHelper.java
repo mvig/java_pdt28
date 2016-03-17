@@ -18,6 +18,7 @@ public class ContactHelper extends BaseHelper {
 
     public void submitNewContact() {
         click(By.name("submit"));
+        click(By.id("logo"));
 
     }
 
@@ -45,6 +46,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void gotoEditContact() {
+
         click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
 
     }
@@ -86,6 +88,11 @@ public class ContactHelper extends BaseHelper {
 
 
     public int getContactCount() {
-        return wd.findElements(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input")).size();
+        return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public void selectContact(int index) {
+        click(By.id("logo"));
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 }
