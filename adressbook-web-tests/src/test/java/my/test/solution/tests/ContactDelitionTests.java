@@ -1,5 +1,6 @@
 package my.test.solution.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
@@ -14,8 +15,11 @@ public class ContactDelitionTests extends TestBase {
             createOneGroupIfGroupsEmpty();
             app.getContactHelper().createContact();
         }
+        int before = app.getContactHelper().getContactCount();
         app.getContactHelper().selectContactForDelete();
         app.getContactHelper().deleteContact();
+        int after = app.getContactHelper().getContactCount();
+        Assert.assertEquals(after,before-1);
 
     }
 }
