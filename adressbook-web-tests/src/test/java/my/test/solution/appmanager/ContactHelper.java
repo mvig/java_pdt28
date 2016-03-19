@@ -3,8 +3,12 @@ package my.test.solution.appmanager;
 import my.test.solution.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tirex on 28.02.2016.
@@ -94,5 +98,21 @@ public class ContactHelper extends BaseHelper {
     public void selectContact(int index) {
         click(By.id("logo"));
         wd.findElements(By.name("selected[]")).get(index).click();
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            String firstName = cells.get(2).getText();
+            String lastName = cells.get(1).getText();
+            int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData(id, lastName, firstName);
+            contacts.add(contact);
+
+        }
+
+        return  contacts;
     }
 }

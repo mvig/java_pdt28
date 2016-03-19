@@ -4,19 +4,20 @@
 package my.test.solution.model;
 
 public class ContactData {
-    private final String firstname;
-    private final String middlename;
-    private final String lastname;
+    private int id;
+    private String firstname;
+    private String middlename;
+    private String lastname;
     private String group;
-    private final String nickname;
-    private final String title_contact;
-    private final String company;
-    private final String address;
-    private final String home_phone;
-    private final String mobile_phone;
-    private final String where_work;
-    private final String fax_phone;
-    private final String email_contact;
+    private String nickname;
+    private String title_contact;
+    private String company;
+    private String address;
+    private String home_phone;
+    private String mobile_phone;
+    private String where_work;
+    private String fax_phone;
+    private String email_contact;
 
     public ContactData(String firstname, String middlename, String lastname, String group, String nickname, String title_contact, String company, String address, String home_phone, String mobile_phone, String where_work, String fax_phone, String email_contact) {
         this.firstname = firstname;
@@ -32,6 +33,13 @@ public class ContactData {
         this.where_work = where_work;
         this.fax_phone = fax_phone;
         this.email_contact = email_contact;
+    }
+
+
+    public ContactData(int id, String lastName, String firstName) {
+        this.id = id;
+        this.firstname = firstName;
+        this.lastname = lastName;
     }
 
     public String getFirstname() {
@@ -85,4 +93,24 @@ public class ContactData {
     public String getGroup() {
         return group;
     }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        return id == that.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
+
