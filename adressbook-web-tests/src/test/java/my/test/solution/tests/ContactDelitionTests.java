@@ -1,7 +1,10 @@
 package my.test.solution.tests;
 
-import org.testng.Assert;
+import my.test.solution.model.ContactData;
 import org.testng.annotations.Test;
+
+import java.util.Comparator;
+import java.util.List;
 
 
 /**
@@ -15,11 +18,18 @@ public class ContactDelitionTests extends TestBase {
             createOneGroupIfGroupsEmpty();
             app.getContactHelper().createContact();
         }
-        int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().selectContact(before-1);
+        //int before = app.getContactHelper().getContactCount();
+        List<ContactData> before = app.getContactHelper().getContactList();
+        app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteContact();
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after,before-1);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        //int after = app.getContactHelper().getContactCount();
+        //Assert.assertEquals(after,before.size()-1);
+
+        before.remove(before.size() - 1);
+        Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+        before.sort(byId);
+        after.sort(byId);
 
     }
 }

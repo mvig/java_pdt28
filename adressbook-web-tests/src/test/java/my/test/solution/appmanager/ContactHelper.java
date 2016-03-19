@@ -27,31 +27,34 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void fillNewContact(ContactData contactData, boolean creation) {
-        type(By.name("firstname"), contactData.getFirstname());
-        type(By.name("middlename"), contactData.getMiddlename());
-        type(By.name("lastname"), contactData.getLastname());
         if (creation) {
+            type(By.name("firstname"), contactData.getFirstname());
+            type(By.name("middlename"), contactData.getMiddlename());
+            type(By.name("lastname"), contactData.getLastname());
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            type(By.name("nickname"), contactData.getNickname());
+            type(By.name("title"), contactData.getTitle_contact());
+            type(By.name("company"), contactData.getCompany());
+            type(By.name("address"), contactData.getAddress());
+            type(By.name("home"), contactData.getHome_phone());
+            type(By.name("mobile"), contactData.getMobile_phone());
+            type(By.name("work"), contactData.getWhere_work());
+            type(By.name("fax"), contactData.getFax_phone());
+            type(By.name("email"), contactData.getEmail_contact());
         } else {
+            type(By.name("firstname"), contactData.getFirstname());
+            type(By.name("lastname"), contactData.getLastname());
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
 
-        type(By.name("nickname"), contactData.getNickname());
-        type(By.name("title"), contactData.getTitle_contact());
-        type(By.name("company"), contactData.getCompany());
-        type(By.name("address"), contactData.getAddress());
-        type(By.name("home"), contactData.getHome_phone());
-        type(By.name("mobile"), contactData.getMobile_phone());
-        type(By.name("work"), contactData.getWhere_work());
-        type(By.name("fax"), contactData.getFax_phone());
-        type(By.name("email"), contactData.getEmail_contact());
+        }
 
 
     }
 
     public void gotoEditContact() {
 
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
+        //click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
+        click(By.xpath("//tr[@class='odd']/td[8]/a"));
 
     }
 
@@ -100,19 +103,29 @@ public class ContactHelper extends BaseHelper {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
+
     public List<ContactData> getContactList() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
-            String firstName = cells.get(2).getText();
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String lastName = cells.get(1).getText();
-            int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+            String firstName = cells.get(2).getText();
             ContactData contact = new ContactData(id, lastName, firstName);
             contacts.add(contact);
 
         }
 
-        return  contacts;
+        return contacts;
     }
+
+    public void modify(int contacts_size, ContactData contact) {
+        click(By.xpath("//*[@id='maintable']/tbody/tr[" + contacts_size + "]/td[8]/a"));
+        fillNewContact(contact, false);
+        submitContactModification();
+        click(By.id("logo"));
+    }
+
+
 }

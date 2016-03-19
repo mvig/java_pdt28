@@ -19,12 +19,15 @@ public class ContactData {
     private String fax_phone;
     private String email_contact;
 
+
     public ContactData(String firstname, String middlename, String lastname, String group, String nickname, String title_contact, String company, String address, String home_phone, String mobile_phone, String where_work, String fax_phone, String email_contact) {
+        this.id=Integer.MAX_VALUE;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
         this.group = group;
         this.nickname = nickname;
+
         this.title_contact = title_contact;
         this.company = company;
         this.address = address;
@@ -35,13 +38,16 @@ public class ContactData {
         this.email_contact = email_contact;
     }
 
-
     public ContactData(int id, String lastName, String firstName) {
         this.id = id;
         this.firstname = firstName;
         this.lastname = lastName;
     }
 
+    public ContactData(String nameMod, String userLastNameMod) {
+        this.firstname = nameMod;
+        this.lastname = userLastNameMod;
+    }
     public String getFirstname() {
         return firstname;
     }
@@ -93,6 +99,19 @@ public class ContactData {
     public String getGroup() {
         return group;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,17 +119,17 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        return id == that.id;
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
 
     }
 
     @Override
     public int hashCode() {
-        return id;
+        int result = firstname != null ? firstname.hashCode() : 0;
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        return result;
     }
 
-    public int getId() {
-        return id;
-    }
 }
 

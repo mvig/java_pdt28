@@ -4,6 +4,9 @@ import my.test.solution.model.ContactData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
+import java.util.List;
+
 
 /**
  * Created by Tirex on 28.02.2016.
@@ -16,12 +19,20 @@ public class ContactModificationTests extends TestBase {
             createOneGroupIfGroupsEmpty();
             app.getContactHelper().createContact();
         }
-        int before = app.getContactHelper().getContactCount();
-        app.getContactHelper().gotoEditContact();
-        app.getContactHelper().fillNewContact(new ContactData("UserName", "UserMidldleName", "UserLastName", null, "User", "ms.", "Home", "ul. Kvita 55 kv.52", "+7 774 888 77", "+380972288311", "BP inc.", "+380972233332", "usermail@google.ru"), false);
-        app.getContactHelper().submitContactModification();
-        int after = app.getContactHelper().getContactCount();
-        Assert.assertEquals(after,before);
+
+        List<ContactData> before = app.getContactHelper().getContactList();
+        ContactData contact = new ContactData("dQQ", "LastdQQ");
+        app.getContactHelper().modify(before.size(), contact);
+        List<ContactData> after = app.getContactHelper().getContactList();
+        Assert.assertEquals(after.size(), before.size());
+
+        before.remove(before.size()-1);
+        before.add(contact);
+
+        Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before, after);
 
     }
 }
