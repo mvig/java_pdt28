@@ -53,8 +53,8 @@ public class ContactHelper extends BaseHelper {
 
     public void gotoEditContact() {
 
-        //click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
-        click(By.xpath("//tr[@class='odd']/td[8]/a"));
+        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
+       // click(By.xpath("//tr[@class='odd']/td[8]/a"));
 
     }
 
@@ -121,7 +121,8 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void modify(int contacts_size, ContactData contact) {
-        click(By.xpath("//*[@id='maintable']/tbody/tr[" + contacts_size + "]/td[8]/a"));
+        //click(By.xpath("//*[@id='maintable']/tbody/tr[" + contacts_size + "]/td[8]/a"));
+        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
         fillNewContact(contact, false);
         submitContactModification();
         click(By.id("logo"));
