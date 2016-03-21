@@ -54,11 +54,18 @@ public class ContactHelper extends BaseHelper {
     public void gotoEditContact() {
 
         click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
-       // click(By.xpath("//tr[@class='odd']/td[8]/a"));
+        // click(By.xpath("//tr[@class='odd']/td[8]/a"));
 
     }
 
-    public void submitContactModification() {
+    public void selectTo(int id) {
+        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(7).findElement(By.tagName("a")).click();
+    }
+
+    public void submit() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
     }
 
@@ -74,22 +81,37 @@ public class ContactHelper extends BaseHelper {
 
     }
 
-    public void deleteContact() {
+    public void delete(int index) {
 
-
+        select(index);
         click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
         wd.switchTo().alert().accept();
 
     }
+
+
+    public void modify(int id,ContactData contact) {
+        selectTo(id);
+        fillNewContact(contact, false);
+        submit();
+        click(By.id("logo"));
+    }
+
+    public void create(ContactData contact) {
+        click(By.linkText("add new"));
+        fillNewContact(contact, true);
+        submitNewContact();
+    }
+
 
     public boolean isThereContact() {
 
         return isElementPresent(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
     }
 
-    public void createContact() {
+    public void createSomeOne() {
         click(By.linkText("add new"));
-        fillNewContact(new ContactData("UserNameN", "UserMidldleName1", "UserLastName1", "test", "User", "mr.", "Home", "ul. Lenina 1 kv.1", "+7 774 777 77", "+380972233311", "KGB", "+380972233311", "usermail@mail.ru"), true);
+        fillNewContact(new ContactData().withFirstname("UserName1").withMiddlename("UserMidldleName1").withLastname("UserLastName1").withGroup("test").withNickname("User").withTitle_contact("mr.").withCompany("Home").withAddress("ul. Lenina 1 kv.1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWhere_work("KGB").withEmail_contact("usermail@mail.ru"), true);
         submitNewContact();
     }
 
@@ -98,13 +120,14 @@ public class ContactHelper extends BaseHelper {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public void selectContact(int index) {
+    public void select(int index) {
         click(By.id("logo"));
         wd.findElements(By.name("selected[]")).get(index).click();
+
     }
 
 
-    public List<ContactData> getContactList() {
+    public List<ContactData> contacts() {
         List<ContactData> contacts = new ArrayList<>();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
@@ -112,20 +135,12 @@ public class ContactHelper extends BaseHelper {
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
-            ContactData contact = new ContactData(id, lastName, firstName);
+            ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName);
             contacts.add(contact);
 
         }
 
         return contacts;
-    }
-
-    public void modify(int contacts_size, ContactData contact) {
-        //click(By.xpath("//*[@id='maintable']/tbody/tr[" + contacts_size + "]/td[8]/a"));
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
-        fillNewContact(contact, false);
-        submitContactModification();
-        click(By.id("logo"));
     }
 
 

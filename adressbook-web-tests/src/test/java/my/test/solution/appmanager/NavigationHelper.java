@@ -23,9 +23,6 @@ public class NavigationHelper extends BaseHelper {
         click(By.linkText("groups"));
     }
 
-    public void goAddNewContact() {
-        click(By.linkText("add new"));
-    }
 
     public void goHome() {
         if (isElementPresent(By.id("maintable")))

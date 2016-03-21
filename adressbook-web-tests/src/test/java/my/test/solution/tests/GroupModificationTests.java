@@ -1,12 +1,13 @@
 package my.test.solution.tests;
 
 import my.test.solution.model.GroupData;
-import org.testng.Assert;
+import my.test.solution.model.Groups;
+import org.hamcrest.CoreMatchers;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Tirex on 28.02.2016.
@@ -15,27 +16,20 @@ public class GroupModificationTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().groupPage();
-        if (app.group().list().size()==0)
+        if (app.group().all().size() == 0)
             app.group().create(new GroupData().withName("test").withHeader("test2").withFooter("test3"));
     }
 
-    @Test
+    @Test()
     public void testsGroupModification() {
 
-        List<GroupData> before = app.group().list();
-        int index =before.size() - 1;
-        GroupData group = new GroupData().withId(before.get(index).getId()).withName("test111").withHeader("test2222").withFooter("test3333");
-        app.group().modify(index, group);
-        List<GroupData> after = app.group().list();
-        Assert.assertEquals(after.size(), before.size());
-
-        before.remove(index);
-        before.add(group);
-
-        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        Groups before = app.group().all();
+        GroupData modifiedGroup = before.iterator().next();
+        GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test111").withHeader("test2222").withFooter("test3333");
+        app.group().modify(group);
+        Groups after = app.group().all();
+        assertEquals(after.size(), before.size());
+        assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 
 

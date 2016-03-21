@@ -1,11 +1,11 @@
 package my.test.solution.appmanager;
 
 import my.test.solution.model.GroupData;
+import my.test.solution.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ public class GroupHelper extends BaseHelper {
         super(wd);
     }
 
-    public void returnToGroupPage() {
+    public void toGroupPage() {
         click(By.linkText("group page"));
     }
 
@@ -31,11 +31,11 @@ public class GroupHelper extends BaseHelper {
         type(By.name("group_footer"), groupData.getFooter());
     }
 
-    public void initGroupCreation() {
+    public void goNew() {
         click(By.name("new"));
     }
 
-    public void deleteSelectedGroups() {
+    public void clickDelete() {
         click(By.xpath("//div[@id='content']/form/input[5]"));
     }
 
@@ -44,11 +44,16 @@ public class GroupHelper extends BaseHelper {
 
     }
 
-    public void initGroupModification() {
+    private void selectGroupById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+
+    }
+
+    public void goEdit() {
         click(By.name("edit"));
     }
 
-    public void submitGroupModification() {
+    public void submit() {
         click(By.name("update"));
     }
 
@@ -57,35 +62,30 @@ public class GroupHelper extends BaseHelper {
     }
 
     public void create(GroupData group) {
-        initGroupCreation();
+        goNew();
         fillGroupForm(group, true);
         submitGroupCreation();
-        returnToGroupPage();
+        toGroupPage();
+
     }
 
-    public void modify(int index, GroupData group) {
-        selectGroup(index);
-        initGroupModification();
+    public void modify(GroupData group) {
+        selectGroupById(group.getId());
+        goEdit();
         fillGroupForm(group, false);
-        submitGroupModification();
-        returnToGroupPage();
+        submit();
+        toGroupPage();
     }
 
-    public void delete(int index) {
-        selectGroup(index);
-        deleteSelectedGroups();
-        returnToGroupPage();
-    }
-
-    public int getGroupCount() {
-        return wd.findElements(By.name("selected[]")).size();
-
-
+    public void delete(GroupData group) {
+        selectGroupById(group.getId());
+        clickDelete();
+        toGroupPage();
     }
 
 
-    public List<GroupData> list() {
-        List<GroupData> groups = new ArrayList<GroupData>();
+    public Groups all() {
+        Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
@@ -96,4 +96,6 @@ public class GroupHelper extends BaseHelper {
 
         return groups;
     }
+
+
 }

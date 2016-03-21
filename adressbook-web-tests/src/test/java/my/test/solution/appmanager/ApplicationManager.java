@@ -20,9 +20,7 @@ public class ApplicationManager {
     private ContactHelper contactHelper;
     private String browser;
 
-    public ApplicationManager() {
 
-    }
 
     public ApplicationManager(String browser) {
 
@@ -60,7 +58,9 @@ public class ApplicationManager {
         return navigationHelper;
     }
 
-    public ContactHelper getContactHelper() {
+    public ContactHelper contact() {
         return contactHelper;
     }
+
+
 }

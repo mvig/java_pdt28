@@ -1,11 +1,11 @@
 package my.test.solution.tests;
 
 import my.test.solution.model.GroupData;
-import org.testng.Assert;
+import my.test.solution.model.Groups;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 public class GroupCreationTests extends TestBase {
 
@@ -14,14 +14,12 @@ public class GroupCreationTests extends TestBase {
         app.goTo().groupPage();
         GroupData group = new GroupData().withName("test222").withHeader("test1").withFooter("test2");
         if (!app.group().isThereGroup()) app.group().create(group);
-        List<GroupData> before = app.group().list();
+        Groups before = app.group().all();
         app.group().create(group);
-        List<GroupData> after = app.group().list();
-        before.add(group);
-        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(before, after);
+        Groups after = app.group().all();
+        assertThat(after.size(), equalTo(before.size() + 1));
+        assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+
     }
 
 }

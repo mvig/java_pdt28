@@ -4,7 +4,7 @@
 package my.test.solution.model;
 
 public class ContactData {
-    private int id;
+    private int id=Integer.MAX_VALUE;
     private String firstname;
     private String middlename;
     private String lastname;
@@ -20,34 +20,78 @@ public class ContactData {
     private String email_contact;
 
 
-    public ContactData(String firstname, String middlename, String lastname, String group, String nickname, String title_contact, String company, String address, String home_phone, String mobile_phone, String where_work, String fax_phone, String email_contact) {
-        this.id=Integer.MAX_VALUE;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.group = group;
-        this.nickname = nickname;
 
-        this.title_contact = title_contact;
-        this.company = company;
-        this.address = address;
-        this.home_phone = home_phone;
-        this.mobile_phone = mobile_phone;
-        this.where_work = where_work;
-        this.fax_phone = fax_phone;
-        this.email_contact = email_contact;
-    }
-
-    public ContactData(int id, String lastName, String firstName) {
+    public ContactData withId(int id) {
         this.id = id;
-        this.firstname = firstName;
-        this.lastname = lastName;
+        return this;
     }
 
-    public ContactData(String nameMod, String userLastNameMod) {
-        this.firstname = nameMod;
-        this.lastname = userLastNameMod;
+    public ContactData withFirstname(String firstname) {
+        this.firstname = firstname;
+        return this;
     }
+
+    public ContactData withMiddlename(String middlename) {
+        this.middlename = middlename;
+        return this;
+    }
+
+    public ContactData withLastname(String lastname) {
+        this.lastname = lastname;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    public ContactData withNickname(String nickname) {
+        this.nickname = nickname;
+        return this;
+    }
+
+    public ContactData withTitle_contact(String title_contact) {
+        this.title_contact = title_contact;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public ContactData withHome_phone(String home_phone) {
+        this.home_phone = home_phone;
+        return this;
+    }
+
+    public ContactData withMobile_phone(String mobile_phone) {
+        this.mobile_phone = mobile_phone;
+        return this;
+    }
+
+    public ContactData withWhere_work(String where_work) {
+        this.where_work = where_work;
+        return this;
+    }
+
+    public ContactData withFax_phone(String fax_phone) {
+        this.fax_phone = fax_phone;
+        return this;
+    }
+
+    public ContactData withEmail_contact(String email_contact) {
+        this.email_contact = email_contact;
+        return this;
+    }
+
+
     public String getFirstname() {
         return firstname;
     }
