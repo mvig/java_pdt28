@@ -18,7 +18,7 @@ public class ContactAddNewTests extends TestBase {
         createOneGroupIfGroupsEmpty();
 
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getNavigationHelper().goAddNewContact();
+        app.goTo().goAddNewContact();
         ContactData contact = new ContactData("UserName1", "UserMidldleName1", "UserLastName1", "test", "User", "mr.", "Home", "ul. Lenina 1 kv.1", "+7 774 777 77", "+380972233311", "KGB", "+380972233311", "usermail@mail.ru");
         app.getContactHelper().fillNewContact(contact, true);
         app.getContactHelper().submitNewContact();

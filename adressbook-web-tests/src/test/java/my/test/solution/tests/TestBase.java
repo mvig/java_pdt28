@@ -24,8 +24,8 @@ public class TestBase {
     }
 
     public void createOneGroupIfGroupsEmpty() {
-        app.getNavigationHelper().gotoGroupPage();
-        if (!app.getGroupHelper().isThereGroup()) app.getGroupHelper().createGroup(new GroupData("test", "test2", "test3"));
-        app.getNavigationHelper().goHome();
+        app.goTo().groupPage();
+        if (!app.group().isThereGroup()) app.group().create(new GroupData("test", "test2", "test3"));
+        app.goTo().goHome();
     }
 }
