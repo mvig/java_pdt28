@@ -13,7 +13,7 @@ public class GroupDelitionTests extends TestBase {
     public void ensurePreconditions() {
         app.goTo().groupPage();
         if (app.group().list().size()==0)
-            app.group().create(new GroupData("test", "test2", "test3"));
+            app.group().create(new GroupData().withName("test").withHeader("test2").withFooter("test3"));
     }
 
     @Test
