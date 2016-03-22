@@ -70,6 +70,7 @@ public class ContactHelper extends BaseHelper {
 
         selectById(contact.getId());
         click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
+        contactCash=null;
         wd.switchTo().alert().accept();
 
     }
@@ -79,6 +80,7 @@ public class ContactHelper extends BaseHelper {
         selectTo(id);
         fillNewContact(contact, false);
         submit();
+        contactCash=null;
         click(By.id("logo"));
     }
 
@@ -86,6 +88,7 @@ public class ContactHelper extends BaseHelper {
         selectTo(contact.getId());
         fillNewContact(contact, false);
         submit();
+        contactCash=null;
         click(By.id("logo"));
     }
 
@@ -93,6 +96,7 @@ public class ContactHelper extends BaseHelper {
         click(By.linkText("add new"));
         fillNewContact(contact, true);
         submitNewContact();
+        contactCash=null;
     }
 
 
@@ -105,6 +109,7 @@ public class ContactHelper extends BaseHelper {
         click(By.linkText("add new"));
         fillNewContact(new ContactData().withFirstname("UserName1").withMiddlename("UserMidldleName1").withLastname("UserLastName1").withGroup("test").withNickname("User").withTitle_contact("mr.").withCompany("Home").withAddress("ul. Lenina 1 kv.1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWhere_work("KGB").withEmail_contact("usermail@mail.ru"), true);
         submitNewContact();
+
     }
 
 
@@ -123,20 +128,24 @@ public class ContactHelper extends BaseHelper {
 
 
 
-
+    private Contacts contactCash = null;
     public Contacts all() {
-        Contacts contacts = new Contacts();
+        if(contactCash!=null){
+            return new Contacts(contactCash);
+
+        }
+        contactCash = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
-            contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
+            contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
 
         }
 
-        return contacts;
+        return new Contacts(contactCash);
     }
 
 
