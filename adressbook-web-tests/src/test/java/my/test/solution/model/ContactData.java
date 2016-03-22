@@ -21,6 +21,7 @@ public class ContactData {
 
 
 
+
     public ContactData withId(int id) {
         this.id = id;
         return this;
@@ -163,17 +164,13 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+        return id == that.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = firstname != null ? firstname.hashCode() : 0;
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        return result;
+        return id;
     }
-
 }
 

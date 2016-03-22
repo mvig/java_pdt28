@@ -5,14 +5,14 @@ import my.test.solution.model.Contacts;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 
 
 /**
  * Created by Tirex on 28.02.2016.
  */
-public class ContactModificationTests extends TestBase {
+public class ContactDeletionTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         if (!app.contact().isThereContact()) {
@@ -22,18 +22,14 @@ public class ContactModificationTests extends TestBase {
     }
 
     @Test
-    public void testsContactEdition() {
-
+    public void testsContactDeletion() {
 
         Contacts before = app.contact().all();
-        ContactData modifyContact = before.iterator().next();
-        ContactData contact = new ContactData().withId(modifyContact.getId()).withFirstname("111FirstNameQQ").withLastname("111LastNameQQ");
-        app.contact().modify(modifyContact);
+        ContactData deleteContact = before.iterator().next();
+        app.contact().delete(deleteContact);
         Contacts after = app.contact().all();
-        assertThat(after.size(), equalTo(before.size()));
-        before.remove(modifyContact);
-        before.add(contact);
-        assertThat(after, equalTo(before.without(modifyContact).withAdded(contact)));
+        assertThat(after.size(), equalTo(before.size() - 1));
+        assertThat(after, equalTo(before.without(deleteContact)));
 
     }
 }

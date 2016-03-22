@@ -2,12 +2,11 @@ package my.test.solution.tests;
 
 import my.test.solution.model.GroupData;
 import my.test.solution.model.Groups;
-import org.hamcrest.CoreMatchers;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 /**
  * Created by Tirex on 28.02.2016.
@@ -28,8 +27,8 @@ public class GroupModificationTests extends TestBase {
         GroupData group = new GroupData().withId(modifiedGroup.getId()).withName("test111").withHeader("test2222").withFooter("test3333");
         app.group().modify(group);
         Groups after = app.group().all();
-        assertEquals(after.size(), before.size());
-        assertThat(after, CoreMatchers.equalTo(before.without(modifiedGroup).withAdded(group)));
+        assertThat(after.size(), equalTo(before.size()));
+        assertThat(after, equalTo(before.without(modifiedGroup).withAdded(group)));
     }
 
 

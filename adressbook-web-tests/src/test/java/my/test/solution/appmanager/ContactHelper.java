@@ -1,13 +1,13 @@
 package my.test.solution.appmanager;
 
 import my.test.solution.model.ContactData;
+import my.test.solution.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,12 +51,6 @@ public class ContactHelper extends BaseHelper {
 
     }
 
-    public void gotoEditContact() {
-
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[8]/a/img"));
-        // click(By.xpath("//tr[@class='odd']/td[8]/a"));
-
-    }
 
     public void selectTo(int id) {
         WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
@@ -70,28 +64,26 @@ public class ContactHelper extends BaseHelper {
     }
 
 
-    public void selectContactForDelete() {
-        click(By.id("logo"));
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[2]/td[1]/input"));
-/*        if (!isElementPresent(By.id("MassCB")))
-            click(By.id("logo"));
-        if (!wd.findElement(By.id("MassCB")).isSelected()) {
-            click(By.id("MassCB"));
-        }*/
 
-    }
 
-    public void delete(int index) {
+    public void delete(ContactData contact) {
 
-        select(index);
+        selectById(contact.getId());
         click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
         wd.switchTo().alert().accept();
 
     }
 
 
-    public void modify(int id,ContactData contact) {
+    public void modify(int id, ContactData contact) {
         selectTo(id);
+        fillNewContact(contact, false);
+        submit();
+        click(By.id("logo"));
+    }
+
+    public void modify(ContactData contact) {
+        selectTo(contact.getId());
         fillNewContact(contact, false);
         submit();
         click(By.id("logo"));
@@ -116,27 +108,31 @@ public class ContactHelper extends BaseHelper {
     }
 
 
-    public int getContactCount() {
-        return wd.findElements(By.name("selected[]")).size();
-    }
-
     public void select(int index) {
         click(By.id("logo"));
         wd.findElements(By.name("selected[]")).get(index).click();
 
     }
 
+    public void selectById(int id) {
+        click(By.id("logo"));
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
 
-    public List<ContactData> contacts() {
-        List<ContactData> contacts = new ArrayList<>();
+
+    }
+
+
+
+
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> rows = wd.findElements(By.name("entry"));
         for (WebElement row : rows) {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
-            ContactData contact = new ContactData().withId(id).withFirstname(firstName).withLastname(lastName);
-            contacts.add(contact);
+            contacts.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
 
         }
 
