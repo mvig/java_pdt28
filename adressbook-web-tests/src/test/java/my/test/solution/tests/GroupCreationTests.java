@@ -22,4 +22,16 @@ public class GroupCreationTests extends TestBase {
 
     }
 
+    @Test
+    public void testBadGroupCreation() {
+        app.goTo().groupPage();
+        GroupData group = new GroupData().withName("test222").withHeader("test1").withFooter("test2");
+        if (!app.group().isThereGroup()) app.group().create(group);
+        Groups before = app.group().all();
+        app.group().create(group);
+        assertThat(app.group().count(), equalTo(before.size()));
+        Groups after = app.group().all();
+        assertThat(after, equalTo(before));
+
+    }
 }

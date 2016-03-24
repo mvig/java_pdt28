@@ -52,25 +52,16 @@ public class ContactHelper extends BaseHelper {
     }
 
 
-    public void selectTo(int id) {
-        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
-        WebElement row = checkbox.findElement(By.xpath("./../.."));
-        List<WebElement> cells = row.findElements(By.tagName("td"));
-        cells.get(7).findElement(By.tagName("a")).click();
-    }
-
     public void submit() {
         click(By.xpath("//div[@id='content']/form[1]/input[22]"));
     }
-
-
 
 
     public void delete(ContactData contact) {
 
         selectById(contact.getId());
         click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
-        contactCash=null;
+        contactCash = null;
         wd.switchTo().alert().accept();
 
     }
@@ -80,7 +71,7 @@ public class ContactHelper extends BaseHelper {
         selectTo(id);
         fillNewContact(contact, false);
         submit();
-        contactCash=null;
+        contactCash = null;
         click(By.id("logo"));
     }
 
@@ -88,7 +79,7 @@ public class ContactHelper extends BaseHelper {
         selectTo(contact.getId());
         fillNewContact(contact, false);
         submit();
-        contactCash=null;
+        contactCash = null;
         click(By.id("logo"));
     }
 
@@ -96,7 +87,7 @@ public class ContactHelper extends BaseHelper {
         click(By.linkText("add new"));
         fillNewContact(contact, true);
         submitNewContact();
-        contactCash=null;
+        contactCash = null;
     }
 
 
@@ -127,10 +118,30 @@ public class ContactHelper extends BaseHelper {
     }
 
 
-
     private Contacts contactCash = null;
+
+    /*
+        public Contacts all() {
+            if(contactCash!=null){
+                return new Contacts(contactCash);
+
+            }
+            contactCash = new Contacts();
+            List<WebElement> rows = wd.findElements(By.name("entry"));
+            for (WebElement row : rows) {
+                List<WebElement> cells = row.findElements(By.tagName("td"));
+                int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
+                String lastName = cells.get(1).getText();
+                String firstName = cells.get(2).getText();
+                contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
+
+            }
+
+            return new Contacts(contactCash);
+        }
+    */
     public Contacts all() {
-        if(contactCash!=null){
+        if (contactCash != null) {
             return new Contacts(contactCash);
 
         }
@@ -141,12 +152,45 @@ public class ContactHelper extends BaseHelper {
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
-            contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
+            String allPhones = cells.get(5).getText();
+            String[] phones = allPhones.split("\n");
+            contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAllPhones(allPhones));
 
         }
 
         return new Contacts(contactCash);
     }
 
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        selectTo(contact.getId());
+        String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        /*String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email1 = wd.findElement(By.name("email1")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");*/
+        wd.navigate().back();
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).withWorkPhone(work);
+
+
+    }
+
+    public void selectTo(int id) {
+        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(7).findElement(By.tagName("a")).click();
+
+//        Другие способы:
+//        wd.findElement(By.xpatch(String.format("//input[@value='%s']./../../td[8]/a", id))).click();
+        //
+//        wd.findElement(By.xpatch(String.format("//tr[.//input[@value='%s']./../../td[8]/a", id))).click();
+        //
+//        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
+        //
+    }
 
 }

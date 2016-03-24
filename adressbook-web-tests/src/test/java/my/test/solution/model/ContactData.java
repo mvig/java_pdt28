@@ -4,7 +4,7 @@
 package my.test.solution.model;
 
 public class ContactData {
-    private int id=Integer.MAX_VALUE;
+    private int id = Integer.MAX_VALUE;
     private String firstname;
     private String middlename;
     private String lastname;
@@ -15,11 +15,30 @@ public class ContactData {
     private String address;
     private String home_phone;
     private String mobile_phone;
-    private String where_work;
+    private String work_phone;
     private String fax_phone;
+    private String where_work;
     private String email_contact;
+    private String allPhones;
+
+    public String getWork_phone() {
+        return work_phone;
+    }
+
+    public ContactData withWorkPhone(String work_phone) {
+        this.work_phone = work_phone;
+        return this;
+    }
 
 
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
 
 
     public ContactData withId(int id) {
@@ -157,6 +176,7 @@ public class ContactData {
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -172,5 +192,7 @@ public class ContactData {
     public int hashCode() {
         return id;
     }
+
+
 }
 
