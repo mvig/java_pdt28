@@ -120,26 +120,7 @@ public class ContactHelper extends BaseHelper {
 
     private Contacts contactCash = null;
 
-    /*
-        public Contacts all() {
-            if(contactCash!=null){
-                return new Contacts(contactCash);
 
-            }
-            contactCash = new Contacts();
-            List<WebElement> rows = wd.findElements(By.name("entry"));
-            for (WebElement row : rows) {
-                List<WebElement> cells = row.findElements(By.tagName("td"));
-                int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
-                String lastName = cells.get(1).getText();
-                String firstName = cells.get(2).getText();
-                contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName));
-
-            }
-
-            return new Contacts(contactCash);
-        }
-    */
     public Contacts all() {
         if (contactCash != null) {
             return new Contacts(contactCash);
@@ -152,6 +133,7 @@ public class ContactHelper extends BaseHelper {
             int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("id"));
             String lastName = cells.get(1).getText();
             String firstName = cells.get(2).getText();
+            String address = cells.get(3).getText();
             String allEmail = cells.get(4).getText();
             String allPhones = cells.get(5).getText();
 
@@ -174,6 +156,8 @@ public class ContactHelper extends BaseHelper {
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email1 = wd.findElement(By.name("email2")).getAttribute("value");
         String email2 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+        String address2 = wd.findElement(By.name("address2")).getAttribute("value");
         wd.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).withWorkPhone(work).withEmail(email).withEmail1(email1).withEmail2(email2);
 

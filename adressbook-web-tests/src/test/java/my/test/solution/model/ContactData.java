@@ -13,6 +13,7 @@ public class ContactData {
     private String title_contact;
     private String company;
     private String address;
+    private String address2;
     private String home_phone;
     private String mobile_phone;
     private String work_phone;
@@ -23,20 +24,37 @@ public class ContactData {
     private String email3_contact;
     private String allEmail;
     private String allPhones;
+    private String allAddresses;
 
-    public String getWork_phone() {
-        return work_phone;
+    public ContactData setId(int id) {
+        this.id = id;
+        return this;
     }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public ContactData withAddress2(String address2) {
+        this.address2 = address2;
+        return this;
+    }
+
+    public String getAllAddresses() {
+        return allAddresses;
+    }
+
+    public ContactData withAllAddresses(String allAddresses) {
+        this.allAddresses = allAddresses;
+        return this;
+    }
+
 
     public ContactData withWorkPhone(String work_phone) {
         this.work_phone = work_phone;
         return this;
     }
 
-
-    public String getAllPhones() {
-        return allPhones;
-    }
 
     public ContactData withAllPhones(String allPhones) {
         this.allPhones = allPhones;
@@ -161,10 +179,17 @@ public class ContactData {
     public String getHome_phone() {
         return home_phone;
     }
+    public String getWork_phone() {
+        return work_phone;
+    }
 
     public String getMobile_phone() {
         return mobile_phone;
     }
+    public String getAllPhones() {
+        return allPhones;
+    }
+
 
     public String getWhere_work() {
         return where_work;
