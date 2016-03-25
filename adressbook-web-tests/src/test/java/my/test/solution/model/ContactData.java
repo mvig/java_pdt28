@@ -253,5 +253,9 @@ public class ContactData {
     }
 
 
+    public String getFio() {
+
+        return getFirstname() + " "+getMiddlename()+ " "+getLastname();
+    }
 }
 

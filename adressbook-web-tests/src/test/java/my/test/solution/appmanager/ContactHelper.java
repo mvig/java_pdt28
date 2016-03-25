@@ -68,7 +68,7 @@ public class ContactHelper extends BaseHelper {
 
 
     public void modify(int id, ContactData contact) {
-        selectTo(id);
+        selectToEditContact(id);
         fillNewContact(contact, false);
         submit();
         contactCash = null;
@@ -76,7 +76,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void modify(ContactData contact) {
-        selectTo(contact.getId());
+        selectToEditContact(contact.getId());
         fillNewContact(contact, false);
         submit();
         contactCash = null;
@@ -137,7 +137,7 @@ public class ContactHelper extends BaseHelper {
             String allEmail = cells.get(4).getText();
             String allPhones = cells.get(5).getText();
 
-           // String[] phones = allPhones.split("\n");
+            // String[] phones = allPhones.split("\n");
             contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAllEmail(allEmail).withAllPhones(allPhones));
 
         }
@@ -147,9 +147,13 @@ public class ContactHelper extends BaseHelper {
 
 
     public ContactData infoFromEditForm(ContactData contact) {
-        selectTo(contact.getId());
+        selectToEditContact(contact.getId());
         String firstname = wd.findElement(By.name("firstname")).getAttribute("value");
+        String middlename = wd.findElement(By.name("middlename")).getAttribute("value");
         String lastname = wd.findElement(By.name("lastname")).getAttribute("value");
+        String nickname = wd.findElement(By.name("nickname")).getAttribute("value");
+        String company = wd.findElement(By.name("company")).getAttribute("value");
+        String title = wd.findElement(By.name("title")).getAttribute("value");
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
@@ -157,14 +161,23 @@ public class ContactHelper extends BaseHelper {
         String email1 = wd.findElement(By.name("email2")).getAttribute("value");
         String email2 = wd.findElement(By.name("email3")).getAttribute("value");
         String address = wd.findElement(By.name("address")).getAttribute("value");
-        String address2 = wd.findElement(By.name("address2")).getAttribute("value");
+      //  String address2 = wd.findElement(By.name("address2")).getAttribute("value");
         wd.navigate().back();
-        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withHome_phone(home).withMobile_phone(mobile).withWorkPhone(work).withEmail(email).withEmail1(email1).withEmail2(email2);
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withNickname(nickname).withMiddlename(middlename).withCompany(company).withTitle_contact(title).withHome_phone(home).withMobile_phone(mobile).withWorkPhone(work).withEmail(email).withEmail1(email1).withEmail2(email2).withAddress(address);
 
 
     }
+    public String infoFromViewForm(ContactData contact) {
+        selectToViewContact(contact.getId());
+        String allViewInfo = wd.findElement(By.xpath("//*[@id='content']")).getText();
+        String exeptInfo = wd.findElement(By.xpath("//*[@id='content']/i")).getText();
+        String neadInfo = allViewInfo.replace(exeptInfo,"");
+        String clearViewInfo = neadInfo.replaceAll("\\s*\\(www\\..*?\\)", "");
+        return clearViewInfo;
 
-    public void selectTo(int id) {
+    }
+
+    public void selectToEditContact(int id) {
         WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
         WebElement row = checkbox.findElement(By.xpath("./../.."));
         List<WebElement> cells = row.findElements(By.tagName("td"));
@@ -178,5 +191,14 @@ public class ContactHelper extends BaseHelper {
 //        wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
         //
     }
+
+    public void selectToViewContact(int id) {
+        WebElement checkbox = wd.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("./../.."));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(6).findElement(By.tagName("a")).click();
+
+    }
+
 
 }
