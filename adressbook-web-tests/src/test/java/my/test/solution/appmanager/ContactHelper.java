@@ -28,19 +28,23 @@ public class ContactHelper extends BaseHelper {
 
     public void fillNewContact(ContactData contactData, boolean creation) {
         if (creation) {
+
             type(By.name("firstname"), contactData.getFirstname());
             type(By.name("middlename"), contactData.getMiddlename());
             type(By.name("lastname"), contactData.getLastname());
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
             type(By.name("nickname"), contactData.getNickname());
             type(By.name("title"), contactData.getTitle_contact());
             type(By.name("company"), contactData.getCompany());
-            type(By.name("address"), contactData.getAddress());
             type(By.name("home"), contactData.getHome_phone());
             type(By.name("mobile"), contactData.getMobile_phone());
-            type(By.name("work"), contactData.getWhere_work());
+            type(By.name("work"), contactData.getWork_phone());
             type(By.name("fax"), contactData.getFax_phone());
             type(By.name("email"), contactData.getEmail1_contact());
+            type(By.name("email2"), contactData.getEmail2_contact());
+            type(By.name("email3"), contactData.getEmail3_contact());
+            type(By.name("address"), contactData.getAddress());
         } else {
             type(By.name("firstname"), contactData.getFirstname());
             type(By.name("lastname"), contactData.getLastname());
@@ -63,6 +67,7 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("//div/div[4]/form[2]/div[2]/input"));
         contactCash = null;
         wd.switchTo().alert().accept();
+        click(By.id("logo"));
 
     }
 
@@ -88,6 +93,7 @@ public class ContactHelper extends BaseHelper {
         fillNewContact(contact, true);
         submitNewContact();
         contactCash = null;
+        click(By.id("logo"));
     }
 
 
@@ -98,8 +104,19 @@ public class ContactHelper extends BaseHelper {
 
     public void createSomeOne() {
         click(By.linkText("add new"));
-        fillNewContact(new ContactData().withFirstname("UserName1").withMiddlename("UserMidldleName1").withLastname("UserLastName1").withGroup("test").withNickname("User").withTitle_contact("mr.").withCompany("Home").withAddress("ul. Lenina 1 kv.1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWhere_work("KGB").withEmail("usermail@mail.ru"), true);
+        // fillNewContact(new ContactData().withFirstname("UserName1").withMiddlename("UserMidldleName1").withLastname("UserLastName1").withGroup("test").withNickname("User").withTitle_contact("mr.").withCompany("Home").withAddress("ul. Lenina 1 kv.1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWhere_work("KGB").withEmail("usermail@mail.ru"), true);
+        ContactData contact = new ContactData().withFirstname("UserName2").withMiddlename("UserMidldleName2")
+                .withLastname("UserLastName2").withGroup("test").withNickname("User2").withTitle_contact("mr.")
+                .withCompany("Home1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77")
+                .withFax_phone("+380972233311").withWorkPhone("+380(077)77333333").withEmail("email71@mail.ru")
+                .withEmail1("email72@mail.ru").withEmail2("email73@mail.ru")
+                .withAddress("Ukraine, ul. Vorova 177, kv. 57");
+
+        fillNewContact(contact, true);
+
         submitNewContact();
+        contactCash = null;
+        click(By.id("logo"));
 
     }
 
@@ -138,7 +155,7 @@ public class ContactHelper extends BaseHelper {
             String allPhones = cells.get(5).getText();
 
             // String[] phones = allPhones.split("\n");
-            contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAllEmail(allEmail).withAllPhones(allPhones));
+            contactCash.add(new ContactData().withId(id).withFirstname(firstName).withLastname(lastName).withAllEmail(allEmail).withAllPhones(allPhones).withAddress(address));
 
         }
 
@@ -157,22 +174,36 @@ public class ContactHelper extends BaseHelper {
         String home = wd.findElement(By.name("home")).getAttribute("value");
         String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
         String work = wd.findElement(By.name("work")).getAttribute("value");
+        String fax = wd.findElement(By.name("fax")).getAttribute("value");
         String email = wd.findElement(By.name("email")).getAttribute("value");
         String email1 = wd.findElement(By.name("email2")).getAttribute("value");
         String email2 = wd.findElement(By.name("email3")).getAttribute("value");
         String address = wd.findElement(By.name("address")).getAttribute("value");
-      //  String address2 = wd.findElement(By.name("address2")).getAttribute("value");
+        //  String address2 = wd.findElement(By.name("address2")).getAttribute("value");
         wd.navigate().back();
-        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname).withNickname(nickname).withMiddlename(middlename).withCompany(company).withTitle_contact(title).withHome_phone(home).withMobile_phone(mobile).withWorkPhone(work).withEmail(email).withEmail1(email1).withEmail2(email2).withAddress(address);
+        return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
+                .withNickname(nickname).withMiddlename(middlename).withCompany(company)
+                .withTitle_contact(title).withHome_phone(home).withMobile_phone(mobile)
+                .withWorkPhone(work).withEmail(email)
+                .withEmail1(email1).withEmail2(email2).withAddress(address).withFax_phone(fax);
 
 
     }
+
     public String infoFromViewForm(ContactData contact) {
         selectToViewContact(contact.getId());
         String allViewInfo = wd.findElement(By.xpath("//*[@id='content']")).getText();
-        String exeptInfo = wd.findElement(By.xpath("//*[@id='content']/i")).getText();
-        String neadInfo = allViewInfo.replace(exeptInfo,"");
+        //String exeptInfo = wd.findElement(By.xpath("//*[@id='content']/i")).getText();
+        String exeptInfo = wd.findElement(By.xpath("//*[@id='content']/i[2]")).getText();
+        String neadInfo = allViewInfo.replace(exeptInfo, "");
         String clearViewInfo = neadInfo.replaceAll("\\s*\\(www\\..*?\\)", "");
+        click(By.id("logo"));
+   /*     System.out.println(allViewInfo);
+        System.out.println("====end allViewInfo=======");
+        System.out.println(exeptInfo);
+        System.out.println("====end exeptInfo=======");
+        System.out.println(clearViewInfo);
+        System.out.println("====end clearViewInfo=======");*/
         return clearViewInfo;
 
     }

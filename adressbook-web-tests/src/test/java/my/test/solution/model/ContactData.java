@@ -117,10 +117,7 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withWhere_work(String where_work) {
-        this.where_work = where_work;
-        return this;
-    }
+
 
     public ContactData withFax_phone(String fax_phone) {
         this.fax_phone = fax_phone;
@@ -188,11 +185,6 @@ public class ContactData {
     }
     public String getAllPhones() {
         return allPhones;
-    }
-
-
-    public String getWhere_work() {
-        return where_work;
     }
 
     public String getFax_phone() {

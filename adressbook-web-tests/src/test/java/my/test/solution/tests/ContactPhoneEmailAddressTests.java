@@ -20,7 +20,8 @@ public class ContactPhoneEmailAddressTests extends TestBase {
         app.goTo().goHome();
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-
+/*        System.out.println(contact.getAllPhones());
+        System.out.println(mergePhones(contactInfoFromEditForm));*/
         assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
 
 

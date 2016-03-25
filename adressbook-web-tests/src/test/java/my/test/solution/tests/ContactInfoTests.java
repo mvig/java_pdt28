@@ -1,6 +1,7 @@
 package my.test.solution.tests;
 
 import my.test.solution.model.ContactData;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.stream.Collectors;
@@ -13,6 +14,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * Created by Tirex on 25.03.2016.
  */
 public class ContactInfoTests extends TestBase {
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (!app.contact().isThereContact()) {
+            createOneGroupIfGroupsEmpty();
+            app.contact().createSomeOne();
+        }
+    }
     @Test
     public void testContactInfo() {
         app.goTo().goHome();
@@ -28,6 +36,7 @@ public class ContactInfoTests extends TestBase {
         String homePhone = contact.getHome_phone();
         String mobilePhone = contact.getMobile_phone();
         String workPhone = contact.getWork_phone();
+        String faxPhone = contact.getFax_phone();
 
         if (homePhone != "") {
             homePhone = "H: " + homePhone;
@@ -38,8 +47,12 @@ public class ContactInfoTests extends TestBase {
         if (workPhone != "") {
             workPhone = "W: " + workPhone;
         }
-        return asList(contact.getFio(), contact.getNickname(), contact.getAddress(), "", homePhone, mobilePhone
-                , workPhone, "", contact.getEmail1_contact(), contact.getEmail2_contact()
+        if (faxPhone != "") {
+            faxPhone = "F: " + faxPhone;
+        }
+        return asList(contact.getFio(), contact.getNickname(),contact.getTitle_contact()
+                ,contact.getCompany(), contact.getAddress(), "", homePhone, mobilePhone
+                , workPhone, faxPhone, "", contact.getEmail1_contact(), contact.getEmail2_contact()
                 , contact.getEmail3_contact(), "\n\n").stream().collect(Collectors.joining("\n"));
 
     }
