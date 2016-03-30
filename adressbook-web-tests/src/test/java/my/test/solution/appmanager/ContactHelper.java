@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class ContactHelper extends BaseHelper {
             type(By.name("firstname"), contactData.getFirstname());
             type(By.name("middlename"), contactData.getMiddlename());
             type(By.name("lastname"), contactData.getLastname());
+            attach(By.name("photo"),contactData.getPhoto());
             //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
             new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
             type(By.name("nickname"), contactData.getNickname());
@@ -45,6 +47,7 @@ public class ContactHelper extends BaseHelper {
             type(By.name("email2"), contactData.getEmail2_contact());
             type(By.name("email3"), contactData.getEmail3_contact());
             type(By.name("address"), contactData.getAddress());
+
         } else {
             type(By.name("firstname"), contactData.getFirstname());
             type(By.name("lastname"), contactData.getLastname());
@@ -105,12 +108,13 @@ public class ContactHelper extends BaseHelper {
     public void createSomeOne() {
         click(By.linkText("add new"));
         // fillNewContact(new ContactData().withFirstname("UserName1").withMiddlename("UserMidldleName1").withLastname("UserLastName1").withGroup("test").withNickname("User").withTitle_contact("mr.").withCompany("Home").withAddress("ul. Lenina 1 kv.1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWhere_work("KGB").withEmail("usermail@mail.ru"), true);
+        File photo = new File("src/test/resources/photo.jpg");
         ContactData contact = new ContactData().withFirstname("UserName2").withMiddlename("UserMidldleName2")
                 .withLastname("UserLastName2").withGroup("test").withNickname("User2").withTitle_contact("mr.")
                 .withCompany("Home1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77")
                 .withFax_phone("+380972233311").withWorkPhone("+380(077)77333333").withEmail("email71@mail.ru")
                 .withEmail1("email72@mail.ru").withEmail2("email73@mail.ru")
-                .withAddress("Ukraine, ul. Vorova 177, kv. 57");
+                .withAddress("Ukraine, ul. Vorova 177, kv. 57").withPhoto(photo);
 
         fillNewContact(contact, true);
 

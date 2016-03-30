@@ -3,6 +3,8 @@
 */
 package my.test.solution.model;
 
+import java.io.File;
+
 public class ContactData {
     private int id = Integer.MAX_VALUE;
     private String firstname;
@@ -25,6 +27,18 @@ public class ContactData {
     private String allEmail;
     private String allPhones;
     private String allAddresses;
+
+    public File getPhoto() {
+        return photo;
+
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
+        return this;
+    }
+
+    private File photo;
 
     public ContactData setId(int id) {
         this.id = id;
