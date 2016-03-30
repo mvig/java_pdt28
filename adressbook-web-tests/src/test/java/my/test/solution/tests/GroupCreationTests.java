@@ -2,23 +2,37 @@ package my.test.solution.tests;
 
 import my.test.solution.model.GroupData;
 import my.test.solution.model.Groups;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class GroupCreationTests extends TestBase {
 
-    @Test
-    public void testGroupCreation() {
+    @DataProvider
+    public Iterator<Object[]> validGroups() {
+        List<Object[]> list = new ArrayList<Object[]>();
+        list.add(new Object[]{new GroupData().withName("name1").withHeader("header1").withFooter("footer1")});
+        list.add(new Object[]{new GroupData().withName("name2").withHeader("header2").withFooter("footer2")});
+        list.add(new Object[]{new GroupData().withName("name3").withHeader("header3").withFooter("footer3")});
+        return list.iterator();
+    }
+
+    @Test(dataProvider = "validGroups")
+    public void testGroupCreation(GroupData group) {
         app.goTo().groupPage();
-        GroupData group = new GroupData().withName("test222").withHeader("test1").withFooter("test2");
         if (!app.group().isThereGroup()) app.group().create(group);
         Groups before = app.group().all();
         app.group().create(group);
         Groups after = app.group().all();
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+
 
     }
 
