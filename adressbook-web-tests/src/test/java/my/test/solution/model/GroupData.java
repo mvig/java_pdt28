@@ -1,14 +1,18 @@
 package my.test.solution.model;
 
+import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 @XStreamAlias("group")
 public class GroupData {
-@XStreamOmitField
-    private int id= Integer.MAX_VALUE;
+    @XStreamOmitField
+    private int id = Integer.MAX_VALUE;
+    @Expose
     private String name;
+    @Expose
     private String header;
+    @Expose
     private String footer;
 
     public GroupData withId(int id) {
@@ -31,7 +35,6 @@ public class GroupData {
         this.footer = footer;
         return this;
     }
-
 
 
     public String getName() {
@@ -57,6 +60,7 @@ public class GroupData {
                 "name='" + name + '\'' +
                 '}';
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
