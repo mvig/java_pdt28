@@ -3,27 +3,50 @@
 */
 package my.test.solution.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
+@XStreamAlias("contact")
 public class ContactData {
+    @XStreamOmitField
     private int id = Integer.MAX_VALUE;
+    @Expose
     private String firstname;
+    @Expose
     private String middlename;
+    @Expose
     private String lastname;
+    @Expose
     private String group;
+    @Expose
     private String nickname;
+    @Expose
     private String title_contact;
+    @Expose
     private String company;
+    @Expose
     private String address;
+
     private String address2;
+
+    @Expose
     private String home_phone;
+    @Expose
     private String mobile_phone;
+    @Expose
     private String work_phone;
+    @Expose
     private String fax_phone;
-    private String where_work;
+    @Expose
     private String email1_contact;
+    @Expose
     private String email2_contact;
+    @Expose
     private String email3_contact;
+
     private String allEmail;
     private String allPhones;
     private String allAddresses;
@@ -132,7 +155,6 @@ public class ContactData {
     }
 
 
-
     public ContactData withFax_phone(String fax_phone) {
         this.fax_phone = fax_phone;
         return this;
@@ -142,6 +164,7 @@ public class ContactData {
         this.email1_contact = email_contact;
         return this;
     }
+
     public ContactData withEmail1(String email1_contact) {
         this.email2_contact = email1_contact;
         return this;
@@ -190,6 +213,7 @@ public class ContactData {
     public String getHome_phone() {
         return home_phone;
     }
+
     public String getWork_phone() {
         return work_phone;
     }
@@ -197,6 +221,7 @@ public class ContactData {
     public String getMobile_phone() {
         return mobile_phone;
     }
+
     public String getAllPhones() {
         return allPhones;
     }
@@ -208,6 +233,7 @@ public class ContactData {
     public String getEmail1_contact() {
         return email1_contact;
     }
+
     public String getEmail2_contact() {
         return email2_contact;
     }
@@ -228,9 +254,6 @@ public class ContactData {
     public int getId() {
         return id;
     }
-
-
-
 
 
     @Override
@@ -261,7 +284,7 @@ public class ContactData {
 
     public String getFio() {
 
-        return getFirstname() + " "+getMiddlename()+ " "+getLastname();
+        return getFirstname() + " " + getMiddlename() + " " + getLastname();
     }
 }
 

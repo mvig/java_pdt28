@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by Tirex on 30.03.2016.
  */
-public class GroupDateGenerator {
+public class GroupDataGenerator {
     @Parameter(names = "-c", description = "Group count")
     public int count;
 
@@ -29,7 +29,7 @@ public class GroupDateGenerator {
     public String format;
 
     public static void main(String[] args) throws IOException {
-        GroupDateGenerator generator = new GroupDateGenerator();
+        GroupDataGenerator generator = new GroupDataGenerator();
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
