@@ -107,8 +107,10 @@ public class ContactHelper extends BaseHelper {
 
     public void createSomeOne() {
         click(By.linkText("add new"));
-        // fillNewContact(new ContactData().withFirstname("UserName1").withMiddlename("UserMidldleName1").withLastname("UserLastName1").withGroup("test").withNickname("User").withTitle_contact("mr.").withCompany("Home").withAddress("ul. Lenina 1 kv.1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWhere_work("KGB").withEmail("usermail@mail.ru"), true);
+
         File photo = new File("src/test/resources/photo.jpg");
+
+
         ContactData contact = new ContactData().withFirstname("UserName2").withMiddlename("UserMidldleName2")
                 .withLastname("UserLastName2").withGroup("test").withNickname("User2").withTitle_contact("mr.")
                 .withCompany("Home1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77")
