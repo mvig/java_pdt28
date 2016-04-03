@@ -5,6 +5,8 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import my.test.solution.model.GroupData;
 import my.test.solution.model.Groups;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -18,6 +20,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class GroupCreationTests extends TestBase {
+
+
 
     @DataProvider
     public Iterator<Object[]> validGroupsCsv() throws IOException {
