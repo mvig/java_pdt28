@@ -15,6 +15,7 @@
     <email1__contact>testemail0@mail.ru</email1__contact>
     <email2__contact>testemail20@mail.ru</email2__contact>
     <email3__contact>testemail30@mail.ru</email3__contact>
+    <photo>src\test\resources\photo.jpg</photo>
   </contact>
   <contact>
     <firstname>UserName1</firstname>
@@ -32,6 +33,7 @@
     <email1__contact>testemail1@mail.ru</email1__contact>
     <email2__contact>testemail21@mail.ru</email2__contact>
     <email3__contact>testemail31@mail.ru</email3__contact>
+    <photo>src\test\resources\photo.jpg</photo>
   </contact>
   <contact>
     <firstname>UserName2</firstname>
@@ -49,39 +51,6 @@
     <email1__contact>testemail2@mail.ru</email1__contact>
     <email2__contact>testemail22@mail.ru</email2__contact>
     <email3__contact>testemail32@mail.ru</email3__contact>
-  </contact>
-  <contact>
-    <firstname>UserName3</firstname>
-    <middlename>UserMidldleName3</middlename>
-    <lastname>UserLastName3</lastname>
-    <group>test</group>
-    <nickname>Nickname3</nickname>
-    <title__contact>Title3</title__contact>
-    <company>Company3</company>
-    <address>Ukraine, ul. TestStr 3, kv. 3</address>
-    <home__phone>+7 774 777 773</home__phone>
-    <mobile__phone>+380972233313</mobile__phone>
-    <work__phone>+380972255313</work__phone>
-    <fax__phone>+3809722333113</fax__phone>
-    <email1__contact>testemail3@mail.ru</email1__contact>
-    <email2__contact>testemail23@mail.ru</email2__contact>
-    <email3__contact>testemail33@mail.ru</email3__contact>
-  </contact>
-  <contact>
-    <firstname>UserName4</firstname>
-    <middlename>UserMidldleName4</middlename>
-    <lastname>UserLastName4</lastname>
-    <group>test</group>
-    <nickname>Nickname4</nickname>
-    <title__contact>Title4</title__contact>
-    <company>Company4</company>
-    <address>Ukraine, ul. TestStr 4, kv. 4</address>
-    <home__phone>+7 774 777 774</home__phone>
-    <mobile__phone>+380972233314</mobile__phone>
-    <work__phone>+380972255314</work__phone>
-    <fax__phone>+3809722333114</fax__phone>
-    <email1__contact>testemail4@mail.ru</email1__contact>
-    <email2__contact>testemail24@mail.ru</email2__contact>
-    <email3__contact>testemail34@mail.ru</email3__contact>
+    <photo>src\test\resources\photo.jpg</photo>
   </contact>
 </list>

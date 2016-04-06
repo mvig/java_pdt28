@@ -27,6 +27,7 @@ public class ContactDataGenerator {
 
     @Parameter(names = "-d", description = "Data format")
     public String format;
+    private File photo;
 
     public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
@@ -74,9 +75,9 @@ public class ContactDataGenerator {
         System.out.println(new File(".").getAbsolutePath());
         try (Writer writer = new FileWriter(file);) {
             for (ContactData contact : contacts) {
-                writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(), contact.getMiddlename(),
+                writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(), contact.getMiddlename(),
                         contact.getMobile_phone(), contact.getWork_phone(), contact.getHome_phone(), contact.getFax_phone(), contact.getGroup(), contact.getTitle_contact(),
-                        contact.getNickname(), contact.getAddress(), contact.getCompany(), contact.getEmail1_contact(), contact.getEmail2_contact(), contact.getEmail3_contact()));
+                        contact.getNickname(), contact.getAddress(), contact.getCompany(), contact.getEmail1_contact(), contact.getEmail2_contact(), contact.getEmail3_contact(),contact.getPhoto()));
             }
         }
 
@@ -84,13 +85,14 @@ public class ContactDataGenerator {
 
     private List<ContactData> generateContact(int count) {
         List<ContactData> contacts = new ArrayList<>();
+
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData().withFirstname(String.format("UserName%s", i)).withMiddlename(String.format("UserMidldleName%s", i))
                     .withLastname(String.format("UserLastName%s", i)).withGroup("test").withNickname(String.format("Nickname%s", i)).withTitle_contact(String.format("Title%s", i))
                     .withCompany(String.format("Company%s", i)).withMobile_phone(String.format("+38097223331%s", i)).withHome_phone(String.format("+7 774 777 77%s", i))
                     .withFax_phone(String.format("+380972233311%s", i)).withWorkPhone(String.format("+38097225531%s", i)).withEmail(String.format("testemail%s@mail.ru", i))
                     .withEmail1(String.format("testemail2%s@mail.ru", i)).withEmail2(String.format("testemail3%s@mail.ru", i))
-                    .withAddress(String.format("Ukraine, ul. TestStr %s, kv. %s", i, i)));
+                    .withAddress(String.format("Ukraine, ul. TestStr %s, kv. %s", i, i)).withPhoto(photo = new File("src/test/resources/photo.jpg")));
 
         }
         return contacts;

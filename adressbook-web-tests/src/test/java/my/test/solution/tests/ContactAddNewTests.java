@@ -41,7 +41,7 @@ public class ContactAddNewTests extends TestBase {
                     .withCompany(split[6]).withMobile_phone(split[7]).withHome_phone(split[8])
                     .withFax_phone(split[9]).withWorkPhone(split[10]).withEmail(split[11])
                     .withEmail1(split[12]).withEmail2(split[13])
-                    .withAddress(split[14])});
+                    .withAddress(split[14]).withPhoto(split[15])});
             line = reader.readLine();
         }
         return list.iterator();
@@ -87,12 +87,13 @@ public class ContactAddNewTests extends TestBase {
     @Test(dataProvider = "validContactsFromJson")
     public void testAddNewContact(ContactData contact) {
 
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
      //   File photo = new File("src/test/resources/photo.jpg");
      //   ContactData contact = new ContactData().withFirstname("UserName2").withMiddlename("UserMidldleName2").withLastname("UserLastName2").withGroup("test").withNickname("User2").withTitle_contact("mr.").withCompany("Home1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWorkPhone("+380(077)77333333").withEmail("email71@mail.ru").withEmail1("email72@mail.ru").withEmail2("email73@mail.ru").withAddress("Ukraine, ul. Vorova 177, kv. 57").withPhoto(photo);
         app.contact().create(contact);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));
+        //assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
         assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 

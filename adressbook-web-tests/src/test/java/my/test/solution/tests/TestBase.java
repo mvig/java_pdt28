@@ -41,7 +41,7 @@ public class TestBase {
     }
     public void createOneGroupIfGroupsEmpty() {
         app.goTo().groupPage();
-        if (!app.group().isThereGroup())
+        //if (!app.group().isThereGroup())
             app.group().create(new GroupData().withName("test").withHeader("test2").withFooter("test3"));
         app.goTo().goHome();
     }

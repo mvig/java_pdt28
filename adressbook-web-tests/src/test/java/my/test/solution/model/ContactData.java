@@ -35,28 +35,6 @@ public class ContactData {
     @Column(name = "nickname")
     private String nickname;
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", middlename='" + middlename + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", title_contact='" + title_contact + '\'' +
-                ", company='" + company + '\'' +
-                ", address='" + address + '\'' +
-                ", home_phone='" + home_phone + '\'' +
-                ", mobile_phone='" + mobile_phone + '\'' +
-                ", work_phone='" + work_phone + '\'' +
-                ", fax_phone='" + fax_phone + '\'' +
-                ", email1_contact='" + email1_contact + '\'' +
-                ", email2_contact='" + email2_contact + '\'' +
-                ", email3_contact='" + email3_contact + '\'' +
-                ", photo='" + photo + '\'' +
-                '}';
-    }
-
     @Expose
     @Column(name = "title")
     private String title_contact;
@@ -85,16 +63,36 @@ public class ContactData {
     @Column(name = "fax")
     @Type(type = "text")
     private String fax_phone;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        return id == that.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
     @Expose
     @Column(name = "email")
     @Type(type = "text")
+
     private String email1_contact;
     @Expose
     @Column(name = "email2")
     @Type(type = "text")
     private String email2_contact;
+
     @Expose
     @Column(name = "email3")
+
     @Type(type = "text")
     private String email3_contact;
     @Transient
@@ -103,19 +101,10 @@ public class ContactData {
     private String allPhones;
     @Transient
     private String allAddresses;
+    @Expose
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
-
-    public File getPhoto() {
-        return (new File(photo));
-
-    }
-
-    public ContactData withPhoto(File photo) {
-        this.photo = photo.getPath();
-        return this;
-    }
 
 
     public ContactData setId(int id) {
@@ -236,6 +225,20 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withPhoto(String s) {
+        this.photo = s;
+        return this;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo.getPath();
+        return this;
+    }
+
+    public File getPhoto() {
+        return (new File(photo));
+
+    }
 
     public String getFirstname() {
         return firstname;
@@ -311,26 +314,33 @@ public class ContactData {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        return id == that.id;
-
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
-    }
-
-
     public String getFio() {
 
         return getFirstname() + " " + getMiddlename() + " " + getLastname();
     }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", title_contact='" + title_contact + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", home_phone='" + home_phone + '\'' +
+                ", mobile_phone='" + mobile_phone + '\'' +
+                ", work_phone='" + work_phone + '\'' +
+                ", fax_phone='" + fax_phone + '\'' +
+                ", email1_contact='" + email1_contact + '\'' +
+                ", email2_contact='" + email2_contact + '\'' +
+                ", email3_contact='" + email3_contact + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
+
+
 }
 

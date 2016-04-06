@@ -15,8 +15,10 @@ import static org.hamcrest.core.IsEqual.equalTo;
 public class ContactDeletionTests extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
-        if (!app.contact().isThereContact()) {
-            createOneGroupIfGroupsEmpty();
+        if (app.db().contacts().isEmpty()) {
+            if (app.db().groups().isEmpty()) {
+                createOneGroupIfGroupsEmpty();
+            }
             app.contact().createSomeOne();
         }
     }
@@ -24,10 +26,10 @@ public class ContactDeletionTests extends TestBase {
     @Test
     public void testsContactDeletion() {
 
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData deleteContact = before.iterator().next();
         app.contact().delete(deleteContact);
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() - 1));
         assertThat(after, equalTo(before.without(deleteContact)));
 

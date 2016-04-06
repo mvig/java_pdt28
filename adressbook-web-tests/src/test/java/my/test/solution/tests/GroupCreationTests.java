@@ -5,12 +5,13 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import my.test.solution.model.GroupData;
 import my.test.solution.model.Groups;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -77,9 +78,9 @@ public class GroupCreationTests extends TestBase {
     public void testGroupCreation(GroupData group) {
         app.goTo().groupPage();
         if (!app.group().isThereGroup()) app.group().create(group);
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         app.group().create(group);
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after.size(), equalTo(before.size() + 1));
         assertThat(after, equalTo(before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
@@ -91,10 +92,10 @@ public class GroupCreationTests extends TestBase {
         app.goTo().groupPage();
         GroupData group = new GroupData().withName("test222").withHeader("test1").withFooter("test2'");
         if (!app.group().isThereGroup()) app.group().create(group);
-        Groups before = app.group().all();
+        Groups before = app.db().groups();
         app.group().create(group);
         assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.group().all();
+        Groups after = app.db().groups();
         assertThat(after, equalTo(before));
 
     }

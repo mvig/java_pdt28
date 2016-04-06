@@ -200,9 +200,11 @@ public class ContactHelper extends BaseHelper {
         selectToViewContact(contact.getId());
         String allViewInfo = wd.findElement(By.xpath("//*[@id='content']")).getText();
         //String exeptInfo = wd.findElement(By.xpath("//*[@id='content']/i")).getText();
-        String exeptInfo = wd.findElement(By.xpath("//*[@id='content']/i[2]")).getText();
-        String neadInfo = allViewInfo.replace(exeptInfo, "");
-        String clearViewInfo = neadInfo.replaceAll("\\s*\\(www\\..*?\\)", "");
+
+//        String exeptInfo = wd.findElement(By.xpath("//*[@id='content']/i[2]")).getText();
+//        String neadInfo = allViewInfo.replace(exeptInfo, "");
+//        String clearViewInfo = neadInfo.replaceAll("\\s*\\(www\\..*?\\)", "");
+        String clearViewInfo = allViewInfo.replaceAll("\\s*\\(www\\..*?\\)", "");
         click(By.id("logo"));
    /*     System.out.println(allViewInfo);
         System.out.println("====end allViewInfo=======");
