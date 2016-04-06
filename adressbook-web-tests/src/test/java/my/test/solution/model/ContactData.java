@@ -6,59 +6,117 @@ package my.test.solution.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
+
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String firstname;
     @Expose
+    @Column(name = "middlename")
     private String middlename;
     @Expose
+    @Column(name = "lastname")
     private String lastname;
     @Expose
+    @Transient
     private String group;
     @Expose
+    @Column(name = "nickname")
     private String nickname;
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "id=" + id +
+                ", firstname='" + firstname + '\'' +
+                ", middlename='" + middlename + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", title_contact='" + title_contact + '\'' +
+                ", company='" + company + '\'' +
+                ", address='" + address + '\'' +
+                ", home_phone='" + home_phone + '\'' +
+                ", mobile_phone='" + mobile_phone + '\'' +
+                ", work_phone='" + work_phone + '\'' +
+                ", fax_phone='" + fax_phone + '\'' +
+                ", email1_contact='" + email1_contact + '\'' +
+                ", email2_contact='" + email2_contact + '\'' +
+                ", email3_contact='" + email3_contact + '\'' +
+                ", photo='" + photo + '\'' +
+                '}';
+    }
+
     @Expose
+    @Column(name = "title")
     private String title_contact;
     @Expose
+    @Column(name = "company")
     private String company;
     @Expose
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+    @Transient
     private String address2;
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String home_phone;
     @Expose
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobile_phone;
     @Expose
+    @Column(name = "work")
+    @Type(type = "text")
     private String work_phone;
     @Expose
+    @Column(name = "fax")
+    @Type(type = "text")
     private String fax_phone;
     @Expose
+    @Column(name = "email")
+    @Type(type = "text")
     private String email1_contact;
     @Expose
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2_contact;
     @Expose
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3_contact;
-
+    @Transient
     private String allEmail;
+    @Transient
     private String allPhones;
+    @Transient
     private String allAddresses;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
 
     public File getPhoto() {
-        return photo;
+        return (new File(photo));
 
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
-    private File photo;
 
     public ContactData setId(int id) {
         this.id = id;
@@ -152,7 +210,6 @@ public class ContactData {
     }
 
 
-
     public ContactData withFax_phone(String fax_phone) {
         this.fax_phone = fax_phone;
         return this;
@@ -162,6 +219,7 @@ public class ContactData {
         this.email1_contact = email_contact;
         return this;
     }
+
     public ContactData withEmail1(String email1_contact) {
         this.email2_contact = email1_contact;
         return this;
@@ -210,6 +268,7 @@ public class ContactData {
     public String getHome_phone() {
         return home_phone;
     }
+
     public String getWork_phone() {
         return work_phone;
     }
@@ -217,6 +276,7 @@ public class ContactData {
     public String getMobile_phone() {
         return mobile_phone;
     }
+
     public String getAllPhones() {
         return allPhones;
     }
@@ -228,6 +288,7 @@ public class ContactData {
     public String getEmail1_contact() {
         return email1_contact;
     }
+
     public String getEmail2_contact() {
         return email2_contact;
     }
@@ -250,18 +311,6 @@ public class ContactData {
     }
 
 
-
-
-
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "id=" + id +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                '}';
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -281,7 +330,7 @@ public class ContactData {
 
     public String getFio() {
 
-        return getFirstname() + " "+getMiddlename()+ " "+getLastname();
+        return getFirstname() + " " + getMiddlename() + " " + getLastname();
     }
 }
 
