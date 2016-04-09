@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import my.test.solution.model.ContactData;
 import my.test.solution.model.Contacts;
+import my.test.solution.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -37,7 +38,8 @@ public class ContactAddNewTests extends TestBase {
             String split[] = line.split(";");
             list.add(new Object[]{new ContactData()
                     .withFirstname(split[0]).withMiddlename(split[1])
-                    .withLastname(split[2]).withGroup(split[3]).withNickname(split[4]).withTitle_contact(split[5])
+                    .withLastname(split[2])//.withGroup(split[3])
+                    .withNickname(split[4]).withTitle_contact(split[5])
                     .withCompany(split[6]).withMobile_phone(split[7]).withHome_phone(split[8])
                     .withFax_phone(split[9]).withWorkPhone(split[10]).withEmail(split[11])
                     .withEmail1(split[12]).withEmail2(split[13])
@@ -74,7 +76,8 @@ public class ContactAddNewTests extends TestBase {
             line = reader.readLine();
         }
         Gson gson = new Gson();
-        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {}.getType());
+        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+        }.getType());
         return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
@@ -86,11 +89,16 @@ public class ContactAddNewTests extends TestBase {
 
     @Test(dataProvider = "validContactsFromJson")
     public void testAddNewContact(ContactData contact) {
-
+        Groups groups = app.db().groups();
         Contacts before = app.db().contacts();
-     //   File photo = new File("src/test/resources/photo.jpg");
-     //   ContactData contact = new ContactData().withFirstname("UserName2").withMiddlename("UserMidldleName2").withLastname("UserLastName2").withGroup("test").withNickname("User2").withTitle_contact("mr.").withCompany("Home1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWorkPhone("+380(077)77333333").withEmail("email71@mail.ru").withEmail1("email72@mail.ru").withEmail2("email73@mail.ru").withAddress("Ukraine, ul. Vorova 177, kv. 57").withPhoto(photo);
-        app.contact().create(contact);
+        //   File photo = new File("src/test/resources/photo.jpg");
+        //   ContactData contact = new ContactData().withFirstname("UserName2").withMiddlename("UserMidldleName2").withLastname("UserLastName2").withGroup("test").withNickname("User2").withTitle_contact("mr.").withCompany("Home1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77").withFax_phone("+380972233311").withWorkPhone("+380(077)77333333").withEmail("email71@mail.ru").withEmail1("email72@mail.ru").withEmail2("email73@mail.ru").withAddress("Ukraine, ul. Vorova 177, kv. 57").withPhoto(photo);
+
+        ContactData newContact = contact.inGroup(groups.iterator().next());
+
+
+//        app.contact().create(contact);
+        app.contact().create(newContact);
         Contacts after = app.db().contacts();
         assertThat(after.size(), equalTo(before.size() + 1));
         //assertThat(after, equalTo(before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));

@@ -55,7 +55,7 @@ public class ContactInfoTests extends TestBase {
             faxPhone = "F: " + faxPhone;
         }
 
-        /*return asList(contact.getFio(), contact.getNickname(),contact.getTitle_contact()
+/*        return asList(contact.getFio(), contact.getNickname(),contact.getTitle_contact()
                 ,contact.getCompany(), contact.getAddress(), "", homePhone, mobilePhone
                 , workPhone, faxPhone, "", contact.getEmail1_contact(), contact.getEmail2_contact()
                 , contact.getEmail3_contact(), "\n\n").stream().collect(Collectors.joining("\n"));*/

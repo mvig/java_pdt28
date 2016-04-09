@@ -2,6 +2,7 @@ package my.test.solution.appmanager;
 
 import my.test.solution.model.ContactData;
 import my.test.solution.model.Contacts;
+import my.test.solution.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,13 +30,17 @@ public class ContactHelper extends BaseHelper {
 
     public void fillNewContact(ContactData contactData, boolean creation) {
         if (creation) {
-
             type(By.name("firstname"), contactData.getFirstname());
             type(By.name("middlename"), contactData.getMiddlename());
             type(By.name("lastname"), contactData.getLastname());
-            attach(By.name("photo"),contactData.getPhoto());
+            attach(By.name("photo"), contactData.getPhoto());
             //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-            new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
+            //new Select(wd.findElement(By.name("new_group"))).selectByIndex(1);
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+
+            }
             type(By.name("nickname"), contactData.getNickname());
             type(By.name("title"), contactData.getTitle_contact());
             type(By.name("company"), contactData.getCompany());
@@ -112,7 +117,8 @@ public class ContactHelper extends BaseHelper {
 
 
         ContactData contact = new ContactData().withFirstname("UserName2").withMiddlename("UserMidldleName2")
-                .withLastname("UserLastName2").withGroup("test").withNickname("User2").withTitle_contact("mr.")
+                .withLastname("UserLastName2")//.withGroup("test")
+                .withNickname("User2").withTitle_contact("mr.")
                 .withCompany("Home1").withMobile_phone("+380972233311").withHome_phone("+7 774 777 77")
                 .withFax_phone("+380972233311").withWorkPhone("+380(077)77333333").withEmail("email71@mail.ru")
                 .withEmail1("email72@mail.ru").withEmail2("email73@mail.ru")
@@ -134,7 +140,7 @@ public class ContactHelper extends BaseHelper {
     }
 
     public void selectById(int id) {
-        click(By.id("logo"));
+//        click(By.id("logo"));
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
 
 
@@ -237,6 +243,55 @@ public class ContactHelper extends BaseHelper {
         List<WebElement> cells = row.findElements(By.tagName("td"));
         cells.get(6).findElement(By.tagName("a")).click();
 
+    }
+
+    public void addToGroup(ContactData contactToMove, GroupData groupToAssign) {
+        selectById(contactToMove.getId());
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupToAssign.getName());
+        pressButtonAddToGroup();
+        gotoPageOfGroup();
+
+    }
+
+    public void gotoPageOfGroup() {
+        click(By.xpath("//*[@id='content']/div/i/a"));
+
+    }
+
+    public void removeFromGroupByContactId(int id) {
+        selectById(id);
+        click(By.name("remove"));
+        click(By.id("logo"));
+
+    }
+
+    public void pressButtonAddToGroup() {
+        click(By.xpath("//*[@id='content']/form[2]/div[4]/input"));
+
+    }
+
+    public Boolean ifThisContactAssignedToGroup(Contacts contacts, ContactData contact, GroupData group, String action) throws IllegalArgumentException {
+        Boolean flag;
+        if (action.equals("add_this")) {
+            flag = false;
+        } else if (action.equals("remove_this")) {
+            flag = true;
+        } else {
+            throw new IllegalArgumentException("\'" + action + "\'" + " action is not supported");
+        }
+
+        for (ContactData c : contacts) {
+            if (c.getId() == contact.getId()) {
+                if (c.getGroups().size() > 0) {
+                    if (c.getGroups().iterator().next().getId() == group.getId()) {
+                        flag = !flag;
+                        break;
+                    }
+                }
+            }
+
+        }
+        return flag;
     }
 
 

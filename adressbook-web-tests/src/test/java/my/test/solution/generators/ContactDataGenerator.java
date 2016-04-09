@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 import my.test.solution.model.ContactData;
+import my.test.solution.tests.TestBase;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Created by Tirex on 31.03.2016.
  */
-public class ContactDataGenerator {
+public class ContactDataGenerator extends TestBase {
     @Parameter(names = "-c", description = "Contact count")
     public int count;
 
@@ -28,6 +29,7 @@ public class ContactDataGenerator {
     @Parameter(names = "-d", description = "Data format")
     public String format;
     private File photo;
+
 
     public static void main(String[] args) throws IOException {
         ContactDataGenerator generator = new ContactDataGenerator();
@@ -76,8 +78,9 @@ public class ContactDataGenerator {
         try (Writer writer = new FileWriter(file);) {
             for (ContactData contact : contacts) {
                 writer.write(String.format("%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s\n", contact.getFirstname(), contact.getLastname(), contact.getMiddlename(),
-                        contact.getMobile_phone(), contact.getWork_phone(), contact.getHome_phone(), contact.getFax_phone(), contact.getGroup(), contact.getTitle_contact(),
-                        contact.getNickname(), contact.getAddress(), contact.getCompany(), contact.getEmail1_contact(), contact.getEmail2_contact(), contact.getEmail3_contact(),contact.getPhoto()));
+                        contact.getMobile_phone(), contact.getWork_phone(), contact.getHome_phone(), contact.getFax_phone(), //contact.getGroup(),
+                        contact.getTitle_contact(),
+                        contact.getNickname(), contact.getAddress(), contact.getCompany(), contact.getEmail1_contact(), contact.getEmail2_contact(), contact.getEmail3_contact(), contact.getPhoto()));
             }
         }
 
@@ -88,7 +91,8 @@ public class ContactDataGenerator {
 
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData().withFirstname(String.format("UserName%s", i)).withMiddlename(String.format("UserMidldleName%s", i))
-                    .withLastname(String.format("UserLastName%s", i)).withGroup("test").withNickname(String.format("Nickname%s", i)).withTitle_contact(String.format("Title%s", i))
+                    .withLastname(String.format("UserLastName%s", i))//.withGroup("test")
+                    .withNickname(String.format("Nickname%s", i)).withTitle_contact(String.format("Title%s", i))
                     .withCompany(String.format("Company%s", i)).withMobile_phone(String.format("+38097223331%s", i)).withHome_phone(String.format("+7 774 777 77%s", i))
                     .withFax_phone(String.format("+380972233311%s", i)).withWorkPhone(String.format("+38097225531%s", i)).withEmail(String.format("testemail%s@mail.ru", i))
                     .withEmail1(String.format("testemail2%s@mail.ru", i)).withEmail2(String.format("testemail3%s@mail.ru", i))
