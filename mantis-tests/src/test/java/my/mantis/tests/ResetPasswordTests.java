@@ -36,6 +36,7 @@ public class ResetPasswordTests extends TestBase {
         app.users().resetPasswordForUserById(user.getId());
 
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 30000);
+
         String address = findActivationLink(mailMessages, user.getEmail());
         app.navigateTo().reactivation(address);
         assertTrue(app.session().isLoggedInAs(user.getUserName()));
@@ -52,7 +53,7 @@ public class ResetPasswordTests extends TestBase {
 
     }
 
-    @AfterMethod(alwaysRun = true)
+   @AfterMethod(alwaysRun = true)
     public void stopMailServer(){
         app.mail().stop();
     }

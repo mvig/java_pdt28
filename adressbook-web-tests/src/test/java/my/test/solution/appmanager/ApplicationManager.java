@@ -26,6 +26,7 @@ public class ApplicationManager {
     private String browser;
     private DbHelper dbHelper;
 
+
     public DbHelper db(){
         return dbHelper;
     }
@@ -74,6 +75,8 @@ public class ApplicationManager {
     public ContactHelper contact() {
         return contactHelper;
     }
+
+
 
 
 
