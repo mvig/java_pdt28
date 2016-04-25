@@ -1,5 +1,6 @@
 package my.test.solution.appmanager;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import static java.lang.System.getProperty;
 
 /**
  * Created by Tirex on 28.02.2016.
@@ -42,7 +45,7 @@ public class ApplicationManager {
 
 
     public void init() throws IOException {
-        String target = System.getProperty("target", "local");
+        String target = getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
         if ("".equals(properties.getProperty("selenium.server"))) {
             if (browser.equals(BrowserType.FIREFOX))
@@ -54,6 +57,7 @@ public class ApplicationManager {
         }else {
             DesiredCapabilities capabilities =new DesiredCapabilities();
             capabilities.setBrowserName(browser);
+            capabilities.setPlatform(Platform.fromString(getProperty("platform","win7")));
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")),capabilities);
         }
         wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
